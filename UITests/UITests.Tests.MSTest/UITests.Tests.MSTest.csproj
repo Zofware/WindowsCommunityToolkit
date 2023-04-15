@@ -23,7 +23,7 @@
     <PackageReference Include="System.Text.Json" Version="5.0.2" />
     <PackageReference Include="System.Drawing.Primitives" Version="4.3.0" />
     <PackageReference Include="System.Diagnostics.Process" Version="4.3.0" />
-    <PackageReference Include="System.Reflection.TypeExtensions" Version="4.5.1" />
+    <PackageReference Include="System.Reflection.TypeExtensions" Version="4.7.0" />
     <!-- Windows SDK packages -->
     <PackageReference Include="Microsoft.Windows.Apps.Test" Version="1.0.181205002" />
     <PackageReference Include="Microsoft.Windows.SDK.Contracts" Version="10.0.19041.1" />
