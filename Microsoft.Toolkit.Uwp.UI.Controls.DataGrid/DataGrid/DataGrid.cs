@@ -6770,10 +6770,9 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls
 
             KeyboardHelper.GetMetaKeyState(out ctrl, out shift, out alt);
 
-            if (ctrl && !shift && !alt && this.SelectionMode == DataGridSelectionMode.Extended)
+            if (ctrl && !shift && !alt)
             {
-                SelectAll();
-                return true;
+                return SelectAll();
             }
 
             return false;
@@ -8014,9 +8013,23 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls
             }
         }
 
-        private void SelectAll()
+        /// <summary>
+        /// Select all rows if extended selection mode is enabled.
+        /// </summary>
+        /// <returns>
+        /// True if successful; false if not in extended selection mode.
+        /// </returns>
+        public bool SelectAll()
         {
-            SetRowsSelection(0, this.SlotCount - 1);
+            if (this.SelectionMode == DataGridSelectionMode.Extended)
+            {
+                SetRowsSelection(0, this.SlotCount - 1);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         private void SetAndSelectCurrentCell(
