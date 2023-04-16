@@ -33,6 +33,12 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls
             DependencyProperty.Register(nameof(WorkArea), typeof(Rect), typeof(Eyedropper), new PropertyMetadata(default(Rect), OnWorkAreaChanged));
 
         /// <summary>
+        /// Identifies the <see cref="TargetElement"/> dependency property.
+        /// </summary>
+        public static readonly DependencyProperty TargetElementProperty =
+            DependencyProperty.Register(nameof(TargetElement), typeof(FrameworkElement), typeof(Eyedropper), new PropertyMetadata(default(FrameworkElement)));
+
+        /// <summary>
         /// Gets the current color value.
         /// </summary>
         public Color Color
@@ -57,6 +63,15 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls
         {
             get => (Rect)GetValue(WorkAreaProperty);
             set => SetValue(WorkAreaProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the working target element of the eyedropper.
+        /// </summary>
+        public FrameworkElement TargetElement
+        {
+            get => (FrameworkElement)GetValue(TargetElementProperty);
+            set => SetValue(TargetElementProperty, value);
         }
 
         private static void OnColorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
