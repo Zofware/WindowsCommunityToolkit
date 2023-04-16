@@ -109,6 +109,10 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls
             {
                 eyedropperToolButton.UnhookTargetElementEvents(e.OldValue as FrameworkElement);
                 eyedropperToolButton.HookUpTargetElementEvents(e.NewValue as FrameworkElement);
+
+                eyedropperToolButton._eyedropper.TargetElement = e.NewValue as FrameworkElement;
+
+                _ = eyedropperToolButton.UpdateEyedropperWorkAreaAsync();
             }
         }
 

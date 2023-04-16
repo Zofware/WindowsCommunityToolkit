@@ -22,7 +22,9 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls
     {
         private void UpdateEyedropper(Point position)
         {
-            if (_appScreenshot == null)
+            if (_appScreenshot == null ||
+                _appScreenshot.SizeInPixels.Width == 0 ||
+                _appScreenshot.SizeInPixels.Height == 0)
             {
                 return;
             }
@@ -30,8 +32,15 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls
             _layoutTransform.X = position.X - (ActualWidth / 2);
             _layoutTransform.Y = position.Y - ActualHeight;
 
-            var x = (int)Math.Ceiling(Math.Min(_appScreenshot.SizeInPixels.Width - 1, Math.Max(position.X, 0)));
-            var y = (int)Math.Ceiling(Math.Min(_appScreenshot.SizeInPixels.Height - 1, Math.Max(position.Y, 0)));
+            Point upperLeft;
+            if (TargetElement != null)
+            {
+                var transform = TargetElement.TransformToVisual(Window.Current.Content);
+                upperLeft = transform.TransformPoint(default(Point));
+            }
+
+            var x = (int)Math.Ceiling(Math.Min(_appScreenshot.SizeInPixels.Width - 1, Math.Max(position.X - upperLeft.X, 0)));
+            var y = (int)Math.Ceiling(Math.Min(_appScreenshot.SizeInPixels.Height - 1, Math.Max(position.Y - upperLeft.Y, 0)));
             Color = _appScreenshot.GetPixelColors(x, y, 1, 1).Single();
             UpdatePreview(x, y);
         }
@@ -127,6 +136,13 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls
                 width = Window.Current.Bounds.Width;
                 height = Window.Current.Bounds.Height;
                 content = Window.Current.Content;
+            }
+
+            if (TargetElement != null)
+            {
+                width = TargetElement.ActualWidth;
+                height = TargetElement.ActualHeight;
+                content = TargetElement;
             }
 
             try
